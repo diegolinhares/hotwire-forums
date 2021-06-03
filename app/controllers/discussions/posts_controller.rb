@@ -4,7 +4,7 @@ module Discussions
   class PostsController < ApplicationController
     before_action :authenticate_user!
     before_action :set_discussion
-    before_action :set_post, only: [:show, :edit, :update, :destroy]
+    before_action :set_post, only: %i[show edit update destroy]
 
     def create
       @post = @discussion.posts.new(post_params)
@@ -19,11 +19,9 @@ module Discussions
       end
     end
 
-    def show
-    end
+    def show; end
 
-    def edit
-    end
+    def edit; end
 
     def update
       respond_to do |format|
