@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class DiscussionsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_discussion, only: %i[show edit update destroy]
