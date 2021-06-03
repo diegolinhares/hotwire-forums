@@ -1,3 +1,9 @@
+<% if @category.present? %>
+  <%= turbo_stream_from @category %>
+<% else %>
+  <%= turbo_stream_from :discussions %>
+<% end %>
+
 <%= turbo_stream_from :discussions %>
 
 <div class="d-flex justify-content-between align-items-center">
@@ -16,8 +22,11 @@
   </div>
 
   <div class="col">
+    <% if @category %>
+      <h4>Viewing discussions in category <%= @category.name %> </h4>
+    <% end %>
     <div id="discussions">
-      <%= render @discussions %>
+      <%= render partial: "discussions/discussion", collection: @discussions %>
     </div>
   </div>
 </div>
