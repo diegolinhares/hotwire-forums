@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class DiscussionBroadcaster
   attr_reader :discussion
 
@@ -35,16 +37,16 @@ class DiscussionBroadcaster
 
   def update_categories(old_category, new_category)
     # Update categories replacing them. This updates the counter in navbar
-    old_category.reload.broadcast_replace_to("categories")
-    new_category.reload.broadcast_replace_to("categories")
+    old_category.reload.broadcast_replace_to('categories')
+    new_category.reload.broadcast_replace_to('categories')
   end
 
   def replace_new_post_form
     discussion.broadcast_action_to(
       discussion,
       action: :replace,
-      target: "new_post_form",
-      partial: "discussions/posts/form",
+      target: 'new_post_form',
+      partial: 'discussions/posts/form',
       locals: { post: discussion.posts.new }
     )
   end
