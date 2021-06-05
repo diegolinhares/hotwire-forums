@@ -45,7 +45,7 @@ class Discussion < ApplicationRecord
   def toggle_subscription(user)
     if subscription = subscription_for(user)
       subscription.toggle!
-    elsif post.where(user_id: user.id).any?
+    elsif posts.where(user_id: user.id).any?
       discussion_subscriptions.create(user: user, subscription_type: 'optout')
     else
       discussion_subscriptions.create(user: user, subscription_type: 'optin')
