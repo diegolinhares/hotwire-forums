@@ -1,0 +1,5 @@
+Hi <%= @user.username %>
+
+New post in <%= @post.discussion.name %>
+
+<%= link_to "Click here to view it", discussion_url(@post.discussion) %>

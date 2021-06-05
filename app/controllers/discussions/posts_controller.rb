@@ -11,6 +11,8 @@ module Discussions
 
       respond_to do |format|
         if @post.save
+          send_post_notification!(@post)
+
           if params.dig('post', 'redirect').present?
             @pagy, @posts = pagy(@discussion.posts.order(created_at: :desc))
             format.html { redirect_to discussion_path(@discussion, page: @pagy.last), notice: 'Post created' }
@@ -60,6 +62,12 @@ module Discussions
 
     def set_discussion
       @discussion = Discussion.find(params[:discussion_id])
+    end
+
+    def send_post_notification!(post)
+      post.subscribers = post.discussion.subscribed_users - [post.user]
+
+      NewPostNotification.with(post: post).deliver_later(post_subscribers)
     end
   end
 end
